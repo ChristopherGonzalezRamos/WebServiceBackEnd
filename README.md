@@ -48,31 +48,29 @@ Este apartado es opcional, yo lo realice por mi situación de que no tenía acce
 
 * En nuestro XAMPP, en la fila de Apache, le damos click al botón de "Config" y seleccionamos "Apache (httpd.config)".
 * Se nos abrirá un bloc de notas, vamos a presionar Ctrl + B y se nos mostrará un ventana de busqueda, ingresamos la palabra "listen" y damos click en "Buscar siguiente".
-* Nos mostrará un apartado como este:
+* Nos mostrará un apartado como este: (en el bloc de notas, estarán al principio de cada línea un simbolo de "#" excepto en Listen 80)
 
-# Listen: Allows you to bind Apache to specific IP addresses and/or
-# ports, instead of the default. See also the <VirtualHost>
-# directive.
-#
-# Change this to Listen on specific IP addresses as shown below to 
-# prevent Apache from glomming onto all bound IP addresses.
-#
-#Listen 12.34.56.78:80
+Listen: Allows you to bind Apache to specific IP addresses and/or
+ports, instead of the default. See also the <VirtualHost>
+directive.
+
+Change this to Listen on specific IP addresses as shown below to 
+prevent Apache from glomming onto all bound IP addresses.
+
+Listen 12.34.56.78:80
 Listen 80
 
 * Vamos a cambiar la penúltima línea por lo siguiente: #Listen 0.0.0.0:80, con esta configuración, abarcará más señales de red de las que antes se estaba limitando y no debemos que quitar el simbolo de #, ya que nos marcará error al momento de correr Apache en relación al puerto. Le damos Ctrl + G para guardar el cambio que hicimos.
 
 * De nuevo presionamos Ctrl + B, ingresamos ahora la palabra "servername" y damos click en "Buscar siguiente".
-* Nos mostrará lo siguiente:
+* Nos mostrará lo siguiente: (similar a lo anterior, estarán al principio de cada línea un simbolo de "#" excepto en ServerName localhost:80)
 
 
-#
-# ServerName gives the name and port that the server uses to identify itself.
-# This can often be determined automatically, but we recommend you specify
-# it explicitly to prevent problems during startup.
-#
-# If your host doesn't have a registered DNS name, enter its IP address here.
-#
+ServerName gives the name and port that the server uses to identify itself.
+This can often be determined automatically, but we recommend you specify
+it explicitly to prevent problems during startup.
+
+If your host doesn't have a registered DNS name, enter its IP address here.
 ServerName localhost:80
 
 Para este paso, si lo desea, puede cambiar el nombre del servidor localhost por la ip de su dirección IPv4 de su equipo, esto para comprobar más adelante en el navegador del dispositivo móvil el locahost del XAMPP pero utilizando una dirección ip. Ya que localhost como tal no lo detecta en el móvil, así que empleamos una dirección ip para que lo podamos llamar, esto no afecta en el XAMPP en el navegador de nuestra computador al acceder a Apache o MYSQL.
