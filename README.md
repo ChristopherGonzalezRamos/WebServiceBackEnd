@@ -127,6 +127,8 @@ También vamos a pasar nuestra carpeta "agenda" en donde contiene todos los PHPs
 
 De esta manera, hemos pasado nuestros PHPs a nuestro XAMPP para que podamos utilizar nuestra aplicación con nuestro WEB SERVICE. Se debe de tener iniciado el Apache y el MYSQL durante la ejecución de la aplicación para que pueda funcionar. 
 
+También vienen adjuntos unas capturas de pantalla de mi dispositivo móvil como evidencia de que si pude acceder al localhost utilizando mi ip en el navegador.
+
 ### PÁGINA OFICIAL DE XAMPP PARA LA DERCARGA DEL SOFTWARE
 #### https://www.apachefriends.org/es/index.html
 
