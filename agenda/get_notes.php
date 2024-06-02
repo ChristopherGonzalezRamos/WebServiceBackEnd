@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta SQL para obtener todas las notas ordenadas por fecha de actualización descendente
-$query = "SELECT * FROM notas ORDER BY updatedAt DESC";
+$query = "SELECT * FROM notas ORDER BY createdAt DESC";
 $result = $conn->query($query);
 
 $notes = [];
