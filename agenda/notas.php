@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
+header("Content-Type: application/json");
 
 // Conexión a la base de datos
 $servername = "localhost";
@@ -13,18 +14,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar la conexión
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(array('status' => 'error', 'message' => 'Connection failed: ' . $conn->connect_error)));
 }
 
 // Obtener la acción del cliente
 $action = isset($_POST['action']) ? $_POST['action'] : null;
-
-// Verificar si la acción es válida
-if ($action === 'create_note') {
-    createNote();
-} else {
-    echo json_encode(array('status' => 'error', 'message' => 'Invalid action'));
-}
 
 // Función para crear una nueva nota
 function createNote() {
@@ -52,6 +46,13 @@ function createNote() {
     } else {
         echo json_encode(array('status' => 'error', 'message' => 'Missing data to create note'));
     }
+}
+
+// Verificar si la acción es válida
+if ($action === 'create_note') {
+    createNote();
+} else {
+    echo json_encode(array('status' => 'error', 'message' => 'Invalid action'));
 }
 
 // Cerrar la conexión
