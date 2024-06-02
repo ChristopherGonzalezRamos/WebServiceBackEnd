@@ -7,39 +7,36 @@ $username = "root";
 $password = "";
 $dbname = "agenda";
 
-// Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Calcular estadísticas
-$today = date("Y-m-d");
+$response = array();
 
-// Cantidad total de notas
-$sqlTotalNotes = "SELECT COUNT(*) as total_notes FROM notas";
-$resultTotalNotes = $conn->query($sqlTotalNotes);
-$totalNotes = $resultTotalNotes->fetch_assoc()['total_notes'];
+// Consulta para contar las notas de hoy
+$sql_today = "SELECT COUNT(*) as count FROM notas WHERE DATE(createdAt) = CURDATE()";
+$result_today = $conn->query($sql_today);
+if ($result_today->num_rows > 0) {
+    $row = $result_today->fetch_assoc();
+    $response['notes_today'] = $row['count'];
+} else {
+    $response['notes_today'] = 0;
+}
 
-// Cantidad de notas creadas en la última semana
-$sqlNotesLastWeek = "SELECT COUNT(*) as notes_last_week FROM notas WHERE createdAt >= DATE_SUB('$today', INTERVAL 7 DAY)";
-$resultNotesLastWeek = $conn->query($sqlNotesLastWeek);
-$notesLastWeek = $resultNotesLastWeek->fetch_assoc()['notes_last_week'];
+// Consulta para contar las notas de la última semana
+$sql_last_week = "SELECT COUNT(*) as count FROM notas WHERE DATE(createdAt) BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 WEEK) AND CURDATE()";
+$result_last_week = $conn->query($sql_last_week);
+if ($result_last_week->num_rows > 0) {
+    $row = $result_last_week->fetch_assoc();
+    $response['notes_last_week'] = $row['count'];
+} else {
+    $response['notes_last_week'] = 0;
+}
 
-// Cantidad de notas creadas hoy
-$sqlNotesToday = "SELECT COUNT(*) as notes_today FROM notas WHERE DATE(createdAt) = '$today'";
-$resultNotesToday = $conn->query($sqlNotesToday);
-$notesToday = $resultNotesToday->fetch_assoc()['notes_today'];
-
-// Devolver los resultados como JSON
-echo json_encode([
-    'status' => 'success',
-    'total_notes' => $totalNotes,
-    'notes_last_week' => $notesLastWeek,
-    'notes_today' => $notesToday
-]);
+$response['status'] = 'success';
+echo json_encode($response);
 
 $conn->close();
 ?>
